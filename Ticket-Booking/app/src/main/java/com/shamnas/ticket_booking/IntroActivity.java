@@ -12,7 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.shamnas.ticket_booking.databinding.ActivityIntroBinding;
 
-public class IntroActivity extends AppCompatActivity {
+public class IntroActivity extends BaseActivity {
 
 private ActivityIntroBinding binding;
 
