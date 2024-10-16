@@ -1,24 +1,65 @@
 package com.shamnas.ticket_booking;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ArrayAdapter;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+import com.shamnas.ticket_booking.databinding.ActivityMainBinding;
+import com.shamnas.ticket_booking.model.Location;
 
+import java.util.ArrayList;
+
+public class MainActivity extends BaseActivity {
+
+    private ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        binding=ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+       initLocations();
+
+    }
+
+    private void initLocations() {
+        binding.progressBarFrom.setVisibility(View.VISIBLE);
+        binding.progressBarTo.setVisibility(View.VISIBLE);
+        DatabaseReference myRef=database.getReference("Locations");
+        ArrayList<Location> locationList=new ArrayList<>();
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    for(DataSnapshot issue: snapshot.getChildren()){
+                        locationList.add(issue.getValue(Location.class));
+                    }
+                    ArrayAdapter<Location> adapter=new ArrayAdapter<>(MainActivity.this, R.layout.sp_item, locationList);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    binding.fromSp.setAdapter(adapter);
+                    binding.toSp.setAdapter(adapter);
+                    binding.fromSp.setSelection(1);
+                    binding.progressBarFrom.setVisibility(View.GONE);
+                    binding.progressBarTo.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
         });
+
     }
 }
