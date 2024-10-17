@@ -23,30 +23,34 @@ import java.util.ArrayList;
 public class MainActivity extends BaseActivity {
 
     private ActivityMainBinding binding;
+    private int adultPassenger = 1, childPassenger = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding=ActivityMainBinding.inflate(getLayoutInflater());
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-       initLocations();
-       initPassengers();
+        initLocations();
+        initPassengers();
+        initClassSeat();
 
     }
+
 
     private void initLocations() {
         binding.progressBarFrom.setVisibility(View.VISIBLE);
         binding.progressBarTo.setVisibility(View.VISIBLE);
-        DatabaseReference myRef=database.getReference("Locations");
-        ArrayList<Location> locationList=new ArrayList<>();
+        DatabaseReference myRef = database.getReference("Locations");
+        ArrayList<Location> locationList = new ArrayList<>();
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    for(DataSnapshot issue: snapshot.getChildren()){
+                if (snapshot.exists()) {
+                    for (DataSnapshot issue : snapshot.getChildren()) {
                         locationList.add(issue.getValue(Location.class));
                     }
-                    ArrayAdapter<Location> adapter=new ArrayAdapter<>(MainActivity.this, R.layout.sp_item, locationList);
+                    ArrayAdapter<Location> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.sp_item, locationList);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     binding.fromSp.setAdapter(adapter);
                     binding.toSp.setAdapter(adapter);
@@ -65,6 +69,39 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initPassengers() {
-        
+        binding.plusAdultBtn.setOnClickListener(v -> {
+            adultPassenger++;
+            binding.adultTxt.setText(adultPassenger + " Adult");
+        });
+        binding.minusAdultBtn.setOnClickListener(v -> {
+            if (adultPassenger > 1) {
+                adultPassenger--;
+                binding.adultTxt.setText(adultPassenger + " Adult");
+            }
+        });
+
+        binding.plusChildBtn.setOnClickListener(v -> {
+            childPassenger++;
+            binding.childTxt.setText(childPassenger + " Child");
+        });
+
+        binding.minusChildBtn.setOnClickListener(v -> {
+            if (childPassenger > 0) {
+                childPassenger--;
+                binding.childTxt.setText(childPassenger + " Child");
+            }
+        });
     }
+
+    private void initClassSeat() {
+        ArrayList<String> classList = new ArrayList<>();
+        classList.add("Business Class");
+        classList.add("First Class");
+        classList.add("Economy Class");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.sp_item, classList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.classSp.setAdapter(adapter);
+    }
+
 }
