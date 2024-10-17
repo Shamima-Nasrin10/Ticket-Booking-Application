@@ -9,18 +9,26 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.shamnas.ticket_booking.R;
+import com.shamnas.ticket_booking.databinding.ActivitySearchBinding;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends BaseActivity {
+
+    private ActivitySearchBinding binding;
+    private String from, to, date;
+    private int numPassenger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_search);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        binding = ActivitySearchBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        getIntentExtra();
+
+    }
+
+    private void getIntentExtra() {
+        from=getIntent().getStringExtra("from");
+        to=getIntent().getStringExtra("to");
     }
 }
