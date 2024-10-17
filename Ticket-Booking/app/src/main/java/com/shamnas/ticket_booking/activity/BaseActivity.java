@@ -1,19 +1,12 @@
-package com.shamnas.ticket_booking;
+package com.shamnas.ticket_booking.activity;
 
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.database.FirebaseDatabase;
-import com.shamnas.ticket_booking.model.Location;
-
-import java.util.ArrayList;
 
 public class BaseActivity extends AppCompatActivity {
 
