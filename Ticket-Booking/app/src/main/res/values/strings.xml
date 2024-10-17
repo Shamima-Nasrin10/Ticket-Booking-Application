@@ -5,4 +5,9 @@
     <string name="subTitle">Experience the unparalleled\n freedom of unhindered\n flight as you effortlessly traverse</string>
     <string name="get_started">GET STARTED</string>
     <string name="search_flights">Search Flights</string>
+    <string name="from">from</string>
+    <string name="to">to</string>
+    <string name="toShort">to</string>
+    <string name="classSearch">class</string>
+    <string name="fromShort">from</string>
 </resources>
