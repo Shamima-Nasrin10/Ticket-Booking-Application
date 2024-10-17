@@ -30,9 +30,9 @@ public class MainActivity extends BaseActivity {
     private ActivityMainBinding binding;
     private int adultPassenger = 1, childPassenger = 1;
 
-    private SimpleDateFormat dateFormat=new SimpleDateFormat("d MMM, yyyy", Locale.ENGLISH);
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("d MMM, yyyy", Locale.ENGLISH);
 
-    private Calendar calendar=Calendar.getInstance();
+    private Calendar calendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +43,10 @@ public class MainActivity extends BaseActivity {
         initLocations();
         initPassengers();
         initClassSeat();
+        initDatePickup();
 
     }
+
 
 
     private void initLocations() {
@@ -116,12 +118,32 @@ public class MainActivity extends BaseActivity {
         binding.progressBarClass.setVisibility(View.GONE);
     }
 
-    private void showDatePickerDialog(TextView textView){
-        int year= calendar.get(Calendar.YEAR);
-        int month=calendar.get(Calendar.MONTH);
-        int day= calendar.get(Calendar.DAY_OF_MONTH);
+    private void showDatePickerDialog(TextView textView) {
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
-//        DatePickerDialog datePickerDialog=new DatePickerDialog();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, selectedYear, selectedMonth, selectedDay) -> {
+            calendar.set(selectedYear, selectedMonth, selectedDay);
+            String formattedDate = dateFormat.format(calendar.getTime());
+            textView.setText(formattedDate);
+        }, year, month, day);
+        datePickerDialog.show();
+    }
+
+    private void initDatePickup() {
+        Calendar calendarToday=Calendar.getInstance();
+        String currentDate= dateFormat.format(calendarToday.getTime());
+        binding.departureDate.setText(currentDate);
+
+        Calendar calendarTomorrow=Calendar.getInstance();
+        calendarTomorrow.add(Calendar.DAY_OF_YEAR,1);
+        String tomorrowDate=dateFormat.format(calendarTomorrow.getTime());
+        binding.returnDateTxt.setText(tomorrowDate);
+
+        binding.departureDate.setOnClickListener(v -> showDatePickerDialog(binding.departureDate));
+
+        binding.returnDateTxt.setOnClickListener(v -> showDatePickerDialog(binding.returnDateTxt));
     }
 
 }
