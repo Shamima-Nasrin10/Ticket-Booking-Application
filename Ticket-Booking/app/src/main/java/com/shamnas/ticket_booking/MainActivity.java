@@ -30,6 +30,7 @@ public class MainActivity extends BaseActivity {
         setContentView(binding.getRoot());
 
        initLocations();
+       initPassengers();
 
     }
 
@@ -61,5 +62,9 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+    }
+
+    private void initPassengers() {
+        
     }
 }
