@@ -1,8 +1,10 @@
 package com.shamnas.ticket_booking;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -18,12 +20,19 @@ import com.google.firebase.database.ValueEventListener;
 import com.shamnas.ticket_booking.databinding.ActivityMainBinding;
 import com.shamnas.ticket_booking.model.Location;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class MainActivity extends BaseActivity {
 
     private ActivityMainBinding binding;
     private int adultPassenger = 1, childPassenger = 1;
+
+    private SimpleDateFormat dateFormat=new SimpleDateFormat("d MMM, yyyy", Locale.ENGLISH);
+
+    private Calendar calendar=Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +103,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initClassSeat() {
+
+        binding.progressBarClass.setVisibility(View.VISIBLE);
         ArrayList<String> classList = new ArrayList<>();
         classList.add("Business Class");
         classList.add("First Class");
@@ -102,6 +113,15 @@ public class MainActivity extends BaseActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this, R.layout.sp_item, classList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.classSp.setAdapter(adapter);
+        binding.progressBarClass.setVisibility(View.GONE);
+    }
+
+    private void showDatePickerDialog(TextView textView){
+        int year= calendar.get(Calendar.YEAR);
+        int month=calendar.get(Calendar.MONTH);
+        int day= calendar.get(Calendar.DAY_OF_MONTH);
+
+//        DatePickerDialog datePickerDialog=new DatePickerDialog();
     }
 
 }
