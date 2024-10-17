@@ -3,13 +3,23 @@ package com.shamnas.ticket_booking.activity;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.shamnas.ticket_booking.R;
 import com.shamnas.ticket_booking.databinding.ActivitySearchBinding;
+import com.shamnas.ticket_booking.model.Flight;
+
+import java.util.ArrayList;
 
 public class SearchActivity extends BaseActivity {
 
@@ -24,11 +34,42 @@ public class SearchActivity extends BaseActivity {
         setContentView(binding.getRoot());
 
         getIntentExtra();
+        initList();
 
     }
 
+    private void initList() {
+        DatabaseReference myRef = database.getReference("Flights");
+        ArrayList<Flight> flightList = new ArrayList<>();
+        Query query = myRef.orderByChild("from").equalTo(from);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot issue : snapshot.getChildren()) {
+                        Flight flight = issue.getValue(Flight.class);
+                        if (flight.getTo().equals(to) && flight.getDate().equals(date)) {
+                            flightList.add(flight);
+                        }
+
+                        if(flightList.isEmpty()){
+                            binding.searchView.setLayoutManager(new LinearLayoutManager(SearchActivity.this, LinearLayoutManager.VERTICAL,false));
+
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private void getIntentExtra() {
-        from=getIntent().getStringExtra("from");
-        to=getIntent().getStringExtra("to");
+        from = getIntent().getStringExtra("from");
+        to = getIntent().getStringExtra("to");
+        date = getIntent().getStringExtra("date");
     }
 }
