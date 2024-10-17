@@ -8,6 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -128,13 +131,13 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initDatePickup() {
-        Calendar calendarToday=Calendar.getInstance();
-        String currentDate= dateFormat.format(calendarToday.getTime());
+        Calendar calendarToday = Calendar.getInstance();
+        String currentDate = dateFormat.format(calendarToday.getTime());
         binding.departureDate.setText(currentDate);
 
-        Calendar calendarTomorrow=Calendar.getInstance();
-        calendarTomorrow.add(Calendar.DAY_OF_YEAR,1);
-        String tomorrowDate=dateFormat.format(calendarTomorrow.getTime());
+        Calendar calendarTomorrow = Calendar.getInstance();
+        calendarTomorrow.add(Calendar.DAY_OF_YEAR, 1);
+        String tomorrowDate = dateFormat.format(calendarTomorrow.getTime());
         binding.returnDateTxt.setText(tomorrowDate);
 
         binding.departureDate.setOnClickListener(v -> showDatePickerDialog(binding.departureDate));
@@ -144,11 +147,13 @@ public class MainActivity extends BaseActivity {
 
     private void setVariable() {
 
-        binding.searchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this, SearchActivity.class);
-            }
+        binding.searchBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            intent.putExtra("from", ((Location) binding.fromSp.getSelectedItem()).getName());
+            intent.putExtra("to", ((Location) binding.toSp.getSelectedItem()).getName());
+            intent.putExtra("date", binding.departureDate.getText().toString());
+            intent.putExtra("numPassenger", adultPassenger + childPassenger);
+            startActivity(intent);
         });
     }
 
