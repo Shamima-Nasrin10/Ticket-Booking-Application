@@ -1,6 +1,7 @@
 package com.shamnas.ticket_booking.activity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.shamnas.ticket_booking.R;
+import com.shamnas.ticket_booking.adapter.FlightAdapter;
 import com.shamnas.ticket_booking.databinding.ActivitySearchBinding;
 import com.shamnas.ticket_booking.model.Flight;
 
@@ -35,7 +37,14 @@ public class SearchActivity extends BaseActivity {
 
         getIntentExtra();
         initList();
+        setVariable();
 
+    }
+
+    private void setVariable() {
+        binding.backBtn.setOnClickListener(v -> {
+            finish();
+        });
     }
 
     private void initList() {
@@ -48,14 +57,16 @@ public class SearchActivity extends BaseActivity {
                 if (snapshot.exists()) {
                     for (DataSnapshot issue : snapshot.getChildren()) {
                         Flight flight = issue.getValue(Flight.class);
-                        if (flight.getTo().equals(to) && flight.getDate().equals(date)) {
+                        if (flight.getTo().equals(to)) {
                             flightList.add(flight);
                         }
 
-                        if(flightList.isEmpty()){
-                            binding.searchView.setLayoutManager(new LinearLayoutManager(SearchActivity.this, LinearLayoutManager.VERTICAL,false));
-
+                        if (!flightList.isEmpty()) {
+                            binding.searchView.setLayoutManager(new LinearLayoutManager(SearchActivity.this, LinearLayoutManager.VERTICAL, false));
+                            binding.searchView.setAdapter(new FlightAdapter(flightList));
                         }
+
+                        binding.progressBarSearch.setVisibility(View.GONE);
                     }
                 }
             }

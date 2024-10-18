@@ -1,6 +1,7 @@
 package com.shamnas.ticket_booking.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.shamnas.ticket_booking.activity.SeatListActivity;
 import com.shamnas.ticket_booking.databinding.ViewholderFlightBinding;
 import com.shamnas.ticket_booking.model.Flight;
 
@@ -42,7 +44,13 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.Viewholder
         holder.binding.toShortTxt.setText(flight.getToShort());
         holder.binding.arrivalTxt.setText(flight.getArriveTime());
         holder.binding.classTxt.setText(flight.getClassSeat());
-        holder.binding.priceTxt.setText("$"+flight.getPrice());
+        holder.binding.priceTxt.setText("$" + flight.getPrice());
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, SeatListActivity.class);
+            intent.putExtra("flight", flight);
+            context.startActivity(intent);
+        });
     }
 
     @Override
