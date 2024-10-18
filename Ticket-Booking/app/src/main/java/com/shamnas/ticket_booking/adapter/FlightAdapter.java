@@ -40,7 +40,9 @@ public class FlightAdapter extends RecyclerView.Adapter<FlightAdapter.Viewholder
         holder.binding.fromShortTxt.setText(flight.getFromShort());
         holder.binding.toTxt.setText(flight.getTo());
         holder.binding.toShortTxt.setText(flight.getToShort());
-
+        holder.binding.arrivalTxt.setText(flight.getArriveTime());
+        holder.binding.classTxt.setText(flight.getClassSeat());
+        holder.binding.priceTxt.setText("$"+flight.getPrice());
     }
 
     @Override
