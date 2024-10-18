@@ -11,13 +11,16 @@
     <color name="grey">#989797</color>
     <color name="lightBlue">#d0e8ff</color>
     <color name="lightGrey">#efefef</color>
+    <color name="lighter_Grey">#bebebe</color>
     <color name="red">#FF0000</color>
     <color name="cyan">#00FFFF</color>
     <color name="orange">#FFA500</color>
+    <color name="yellowish_orange">#FFD500</color>
     <color name="lavender">#E6E6FA</color>
     <color name="turquoise">#40E0D0</color>
     <color name="rose_gold">#B76E79</color>
     <color name="mint_green">#98FF98</color>
+    <color name="lemon_green">#11D244</color>
     <color name="royal_blue">#4169E1</color>
     <color name="hot_pink">#FF69B4</color>
     <color name="midnight_blue">#191970</color>
