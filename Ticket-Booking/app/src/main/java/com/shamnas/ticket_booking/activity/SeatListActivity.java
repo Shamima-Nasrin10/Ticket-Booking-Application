@@ -1,6 +1,7 @@
 package com.shamnas.ticket_booking.activity;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +36,11 @@ public class SeatListActivity extends BaseActivity {
 
         getIntentExtra();
         initSeatList();
+        setVariable();
+    }
+
+    private void setVariable() {
+        binding.backBtn.setOnClickListener(v -> finish());
     }
 
     private void initSeatList() {
