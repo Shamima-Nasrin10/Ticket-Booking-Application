@@ -55,7 +55,7 @@ public class SeatAdapter extends RecyclerView.Adapter<SeatAdapter.SeatViewholder
                 break;
             case EMPTY:
                 holder.binding.seatImageView.setBackgroundResource(R.drawable.ic_seat_empty);
-                holder.binding.seatImageView.setTextColor(ContextCompat.getColor(context, R.color.purple_700));
+                holder.binding.seatImageView.setTextColor(ContextCompat.getColor(context, R.color.periwinkle));
                 break;
         }
         holder.binding.seatImageView.setOnClickListener(v -> {

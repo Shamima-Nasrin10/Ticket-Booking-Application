@@ -10,10 +10,12 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.shamnas.ticket_booking.R;
+import com.shamnas.ticket_booking.adapter.SeatAdapter;
 import com.shamnas.ticket_booking.databinding.ActivitySeatListBinding;
 import com.shamnas.ticket_booking.model.Flight;
 import com.shamnas.ticket_booking.model.Seat;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -70,6 +72,17 @@ public class SeatListActivity extends BaseActivity {
             }
 
         }
+
+        SeatAdapter seatAdapter=new SeatAdapter(seatList, this, (selectedName, num) -> {
+            binding.numberSelectedTxt.setText(num+" Seat Selected");
+            binding.nameSeatSelectedTxt.setText(selectedName);
+            DecimalFormat df=new DecimalFormat("#.##");
+            price=(Double.valueOf(df.format(num*flight.getPrice())));
+                this.num=num;
+            binding.priceTxtSeatList.setText("$"+price);
+        });
+        binding.seatRecyclerView.setAdapter(seatAdapter);
+        binding.seatRecyclerView.setNestedScrollingEnabled(false);
     }
 
     private void getIntentExtra() {
