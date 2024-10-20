@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="@color/lightGrey"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/lightGrey"
     tools:context=".activity.TicketDetailActivity">
 
     <ScrollView
@@ -15,7 +15,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -49,8 +49,8 @@
                     android:layout_marginStart="16dp"
                     android:text="Ticket Detail"
                     android:textColor="@color/white"
-                    android:textStyle="bold"
                     android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="@+id/backBtnTicket"
                     app:layout_constraintStart_toEndOf="@+id/backBtnTicket"
                     app:layout_constraintTop_toTopOf="@+id/backBtnTicket" />
@@ -59,8 +59,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/white_bg_main"
                 android:layout_margin="@dimen/_16sdp"
+                android:background="@drawable/white_bg_main"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -197,34 +197,212 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_16sdp"
                         android:text="@string/classSearch"
-                        android:textStyle="bold"
                         android:textColor="@color/black"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@id/imageView13"
                         app:layout_constraintStart_toEndOf="@id/imageView13"
                         app:layout_constraintTop_toTopOf="@id/imageView13" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-                
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_10sdp"
                     android:orientation="horizontal">
 
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/textView8"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="TextView"
-                            android:textColor="@color/black"/>
+                            android:text="From"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/fromSmallTxt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:text="Date"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/dateTxt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="To"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/toSmallTxt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:text="Time"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/timeTxt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/dash_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_10sdp"
+                    android:orientation="horizontal">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Class"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/classTxtTicket"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:text="Seats"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/seatTxt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Airlines"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/airlinesTxt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:text="Price"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/priceTxtTicket"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:src="@drawable/qrcode" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/dash_line" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/barcode"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_18sdp"/>
             </LinearLayout>
+            
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/downloadTicketBtn"
+                android:text="Download Ticket"
+                android:textStyle="bold"
+                android:textSize="@dimen/_12ssp"
+                android:background="@drawable/blue_bg_search_btn"
+                android:layout_marginStart="@dimen/_18sdp"
+                android:layout_marginEnd="@dimen/_18sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:textColor="@color/white"
+                style="@android:style/Widget.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
