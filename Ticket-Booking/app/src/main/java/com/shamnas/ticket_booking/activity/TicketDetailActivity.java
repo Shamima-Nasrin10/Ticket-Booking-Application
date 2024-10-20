@@ -9,18 +9,18 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.shamnas.ticket_booking.R;
+import com.shamnas.ticket_booking.databinding.ActivityTicketDetailBinding;
+import com.shamnas.ticket_booking.model.Flight;
 
-public class TicketDetailActivity extends AppCompatActivity {
+public class TicketDetailActivity extends BaseActivity {
+    private ActivityTicketDetailBinding binding;
+    private Flight flight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_ticket_detail);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        binding = ActivityTicketDetailBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
     }
 }
