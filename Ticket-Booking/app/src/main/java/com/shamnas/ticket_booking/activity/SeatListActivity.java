@@ -1,6 +1,7 @@
 package com.shamnas.ticket_booking.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -12,6 +13,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.shamnas.ticket_booking.R;
 import com.shamnas.ticket_booking.adapter.SeatAdapter;
 import com.shamnas.ticket_booking.databinding.ActivitySeatListBinding;
@@ -47,6 +51,7 @@ public class SeatListActivity extends BaseActivity {
             if (num > 0) {
                 flight.setPassenger(binding.nameSeatSelectedTxt.getText().toString());
                 flight.setPrice(price);
+
                 Intent intent=new Intent(SeatListActivity.this, TicketDetailActivity.class);
                 intent.putExtra("flight", flight);
                 startActivity(intent);

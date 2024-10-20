@@ -1,16 +1,21 @@
 package com.shamnas.ticket_booking.activity;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import com.bumptech.glide.Glide;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.shamnas.ticket_booking.databinding.ActivityTicketDetailBinding;
 import com.shamnas.ticket_booking.model.Flight;
 
@@ -21,7 +26,8 @@ import java.io.IOException;
 public class TicketDetailActivity extends BaseActivity {
     private ActivityTicketDetailBinding binding;
     private Flight flight;
-
+    private Bitmap qrCodeBitmap;
+    private Bitmap barcodeBitmap;
     private static final int CREATE_PDF_REQUEST_CODE = 1;
 
     @Override
@@ -133,9 +139,39 @@ public class TicketDetailActivity extends BaseActivity {
         Glide.with(TicketDetailActivity.this)
                 .load(flight.getAirlineLogo())
                 .into(binding.logo);
+
+        // Display QR code and barcode images
+        ImageView qrCodeImageView = binding.qrCodeImageView;
+        qrCodeImageView.setImageBitmap(qrCodeBitmap);
+
+        ImageView barcodeImageView = binding.barcodeImageView;
+        barcodeImageView.setImageBitmap(barcodeBitmap);
     }
 
     private void getIntentExtra() {
+        Intent intent = getIntent();
         flight=(Flight) getIntent().getSerializableExtra("flight");
+        qrCodeBitmap = generateQRCode(flight.getAirlineName());
+        barcodeBitmap = generateBarcode(flight.getAirlineName());
+    }
+
+    private Bitmap generateQRCode(String data) {
+        try {
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            return barcodeEncoder.encodeBitmap(data, BarcodeFormat.QR_CODE, 400, 400);
+        } catch (WriterException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private Bitmap generateBarcode(String data) {
+        try {
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            return barcodeEncoder.encodeBitmap(data, BarcodeFormat.CODE_128, 400, 100);
+        } catch (WriterException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
