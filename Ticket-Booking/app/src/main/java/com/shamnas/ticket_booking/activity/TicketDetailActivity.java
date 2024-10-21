@@ -94,13 +94,16 @@ public class TicketDetailActivity extends BaseActivity {
         // Draw title "Flight Details"
         int titleYPosition = 40; // Position for title
         canvas.drawText("Flight Details", 10, titleYPosition, titlePaint);
+        // Draw passenger name below the title
+        int passengerNameYPosition = titleYPosition + 30; // Adjust this value to control spacing
+        canvas.drawText("Passenger Name: Shamima Nasrin" ,10, passengerNameYPosition, titlePaint);
 
         // Starting position for the table
         int startX = 10;
         int labelColumnX = startX + 5;  // For labels
         int dataColumnX = startX + 150; // For corresponding data
         int rowHeight = 30; // Height for each row
-        int yPosition = titleYPosition + 40; // Start the table after the title
+        int yPosition = passengerNameYPosition + 40; // Start the table after the title
         int endX = pageInfo.getPageWidth() - 10; // Right end for the border
 
         // Draw borders for the table (each row)
@@ -133,7 +136,7 @@ public class TicketDetailActivity extends BaseActivity {
         }
 
         // Adding spacing between the table and the QR code
-        yPosition += 10;
+        yPosition += 6;
 
         // Draw QR code
         if (qrCodeBitmap != null) {

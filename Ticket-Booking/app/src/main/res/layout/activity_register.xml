@@ -33,6 +33,17 @@
           <EditText
               android:layout_width="match_parent"
               android:layout_height="50dp"
+              android:id="@+id/inputUser"
+              android:background="@drawable/input_field_bg"
+              android:layout_marginTop="20dp"
+              android:padding="8dp"
+              android:hint="Name"
+              android:drawableLeft="@drawable/baseline_account_circle_24"
+              android:textColorHint="@color/teal_700"
+              android:textColor="@color/black"/>
+          <EditText
+              android:layout_width="match_parent"
+              android:layout_height="50dp"
               android:id="@+id/inputEmail"
               android:background="@drawable/input_field_bg"
               android:layout_marginTop="20dp"

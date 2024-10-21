@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -23,11 +22,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.shamnas.ticket_booking.R;
 
-public class RegisterActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity {
 
-    TextView alreadyHaveAccount;
-    EditText inputUser, inputEmail, inputPassword, inputConfirmPassword;
-    Button btnRegister;
+    EditText inputUser, inputEmail, inputPassword;
+    Button btnLogin;
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     ProgressDialog progressDialog;
     FirebaseAuth myAuth;
@@ -36,72 +34,57 @@ public class RegisterActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-        alreadyHaveAccount = findViewById(R.id.alreadyHaveAccount);
+        setContentView(R.layout.activity_login);
 
-        inputUser=findViewById(R.id.inputUser);
+
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPassword);
-        inputConfirmPassword = findViewById(R.id.inputConfirmPassword);
-        btnRegister = findViewById(R.id.btnRegister);
+
+        btnLogin = findViewById(R.id.btnLogin);
         progressDialog = new ProgressDialog(this);
         myAuth = FirebaseAuth.getInstance();
         mUser = myAuth.getCurrentUser();
 
-
-        alreadyHaveAccount.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-            }
-        });
-
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                performAuth();
+                performLogin();
             }
         });
 
     }
 
-    private void performAuth() {
-        String userName = inputUser.getText().toString();
+    private void performLogin() {
         String email = inputEmail.getText().toString();
         String password = inputPassword.getText().toString();
-        String confirmPassword = inputConfirmPassword.getText().toString();
 
-        if (userName.isEmpty()) {
-            inputUser.setError("Enter your username");
-        } else if (!email.matches(emailPattern)) {
+        if (!email.matches(emailPattern)) {
             inputEmail.setError("Enter valid email");
         } else if (password.isEmpty() || password.length() < 6) {
             inputPassword.setError("Enter proper password");
-        } else if (!password.equals(confirmPassword)) {
-            inputConfirmPassword.setError("Password not matched");
         } else {
-            progressDialog.setMessage("Please wait while Registration...");
-            progressDialog.setTitle("Registration");
+            progressDialog.setMessage("Please wait while Login...");
+            progressDialog.setTitle("Login");
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
-            myAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+            myAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         progressDialog.dismiss();
                         sendUserToNextActivity();
-                        Toast.makeText(RegisterActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                     }else {
                         progressDialog.dismiss();
-                        Toast.makeText(RegisterActivity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
     }
-
     private void sendUserToNextActivity() {
-        Intent intent=new Intent(RegisterActivity.this, LoginActivity.class);
+        Intent intent=new Intent(LoginActivity.this, IntroActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }

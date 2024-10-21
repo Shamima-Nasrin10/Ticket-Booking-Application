@@ -36,5 +36,10 @@
     <color name="plum">#DDA0DD</color>
     <color name="indigo">#4B0082</color>
     <color name="olive_drab">#6B8E23</color>
+    <color name="dodger_blue">#1E90FF</color>
+    <color name="cornflower_blue">#6495ED</color>
+    <color name="medium_blue">#0000CD</color>
+    <color name="navy_blue">#000080</color>
+    <color name="steel_blue">#4682B4</color>
 
 </resources>
