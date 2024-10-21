@@ -73,38 +73,82 @@ public class TicketDetailActivity extends BaseActivity {
         PdfDocument.Page page = pdfDocument.startPage(pageInfo);
         Canvas canvas = page.getCanvas();
         Paint paint = new Paint();
-        paint.setTextSize(12);
 
-        // Starting Y position for drawing text
-        int yPosition = 25;
+        // Set text sizes and styles
+        Paint titlePaint = new Paint();
+        titlePaint.setTextSize(20);
+        titlePaint.setFakeBoldText(true);
 
-        // Draw the ticket details line by line
-        canvas.drawText("Flight Details:", 10, yPosition, paint);
-        yPosition += 20; // Move down for the next line
+        Paint labelPaint = new Paint();
+        labelPaint.setTextSize(14);
 
-        canvas.drawText("From: " + flight.getFromShort(), 10, yPosition, paint);
-        yPosition += 20;
+        Paint dataPaint = new Paint();
+        dataPaint.setTextSize(14);
+        dataPaint.setFakeBoldText(true);
 
-        canvas.drawText("To: " + flight.getToShort(), 10, yPosition, paint);
-        yPosition += 20;
+        // Paint for borders
+        Paint borderPaint = new Paint();
+        borderPaint.setStyle(Paint.Style.STROKE);
+        borderPaint.setStrokeWidth(2);
 
-        canvas.drawText("Date: " + flight.getDate(), 10, yPosition, paint);
-        yPosition += 20;
+        // Draw title "Flight Details"
+        int titleYPosition = 40; // Position for title
+        canvas.drawText("Flight Details", 10, titleYPosition, titlePaint);
 
-        canvas.drawText("Time: " + flight.getTime(), 10, yPosition, paint);
-        yPosition += 20;
+        // Starting position for the table
+        int startX = 10;
+        int labelColumnX = startX + 5;  // For labels
+        int dataColumnX = startX + 150; // For corresponding data
+        int rowHeight = 30; // Height for each row
+        int yPosition = titleYPosition + 40; // Start the table after the title
+        int endX = pageInfo.getPageWidth() - 10; // Right end for the border
 
-        canvas.drawText("Class: " + flight.getClassSeat(), 10, yPosition, paint);
-        yPosition += 20;
+        // Draw borders for the table (each row)
+        String[] labels = {"From:", "To:", "Date:", "Time:", "Class:", "Price:", "Airline:", "Seat:"};
+        String[] data = {
+                flight.getFromShort(),
+                flight.getToShort(),
+                flight.getDate(),
+                flight.getTime(),
+                flight.getClassSeat(),
+                "$" + flight.getPrice(),
+                flight.getAirlineName(),
+                flight.getPassenger()
+        };
 
-        canvas.drawText("Price: $" + flight.getPrice(), 10, yPosition, paint);
-        yPosition += 20;
+        for (int i = 0; i < labels.length; i++) {
+            // Draw label column borders
+            canvas.drawRect(startX, yPosition - rowHeight + 5, dataColumnX - 5, yPosition + 5, borderPaint);
 
-        canvas.drawText("Airline: " + flight.getAirlineName(), 10, yPosition, paint);
-        yPosition += 20;
+            // Draw data column borders
+            canvas.drawRect(dataColumnX, yPosition - rowHeight + 5, endX, yPosition + 5, borderPaint);
 
-        canvas.drawText("Seat: " + flight.getPassenger(), 10, yPosition, paint);
-        yPosition += 20;
+            // Draw label text
+            canvas.drawText(labels[i], labelColumnX, yPosition, labelPaint);
+
+            // Draw data text
+            canvas.drawText(data[i], dataColumnX + 5, yPosition, dataPaint);
+
+            yPosition += rowHeight;
+        }
+
+        // Adding spacing between the table and the QR code
+        yPosition += 10;
+
+        // Draw QR code
+        if (qrCodeBitmap != null) {
+            int qrCodeX = labelColumnX;
+            canvas.drawBitmap(qrCodeBitmap, qrCodeX, yPosition, null);
+        }
+
+        // Add spacing between QR code and Barcode
+        yPosition += 400; // Adjust based on QR code height
+
+        // Draw Barcode
+        if (barcodeBitmap != null) {
+            int barcodeX = labelColumnX;
+            canvas.drawBitmap(barcodeBitmap, barcodeX, yPosition, null);
+        }
 
         // Finish the page
         pdfDocument.finishPage(page);
@@ -120,6 +164,8 @@ public class TicketDetailActivity extends BaseActivity {
             pdfDocument.close();
         }
     }
+
+
 
     private void setVariable() {
         binding.backBtnTicket.setOnClickListener(v -> finish());
