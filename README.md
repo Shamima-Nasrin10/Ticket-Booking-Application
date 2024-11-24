@@ -1,4 +1,3 @@
-# Ticket-Booking-Application
 # Air Ticket Booking Application
 
 A comprehensive mobile application for seamless flight ticket booking, developed using **Java**, **Firebase**, and **Android Studio**. The application enables users to search for flights, book tickets, and manage bookings efficiently.
@@ -20,60 +19,42 @@ A comprehensive mobile application for seamless flight ticket booking, developed
 - **Backend Integration**:
   - Firebase for real-time database, cloud storage, and backend operations.
 
-
 ## Screenshots
 
 ### Registration Screen
-![Login Screen](screenshots/1_Registration.jpg)
-
+<img src="screenshots/1_Registration.jpg" alt="Registration Screen" width="400">
 
 ### Login Search
-![Login Search](screenshots/2_Login.jpg)
-
+<img src="screenshots/2_Login.jpg" alt="Login Screen" width="400">
 
 ### Start Page
-![Booking Confirmation](screenshots/3_StartPage.jpg)
-*Confirmation message after successful ticket booking.*
+<img src="screenshots/3_StartPage.jpg" alt="Start Page" width="400">
 
-###  Required details to search flights
-![Ticket Management](screenshots/4.jpg)
-*View, download, or share your tickets.*
+### Required Details to Search Flights
+<img src="screenshots/4.jpg" alt="Search Details" width="400">
 
+<img src="screenshots/5.jpg" alt="Flight Search Details" width="400">
 
-![Ticket Management](screenshots/5.jpg)
-*View, download, or share your tickets.*
+<img src="screenshots/6.jpg" alt="More Details" width="400">
 
+<img src="screenshots/7.jpg" alt="Additional Details" width="400">
 
-![Ticket Management](screenshots/6.jpg)
-*View, download, or share your tickets.*
+### Search Result
+<img src="screenshots/8.jpg" alt="Search Results" width="400">
 
+<img src="screenshots/9.jpg" alt="Flight Search Results" width="400">
 
-![Ticket Management](screenshots/7.jpg)
-*View, download, or share your tickets.*
-
-### Search result
-![Ticket Management](screenshots/8.jpg)
-*View, download, or share your tickets.*
-
-![Ticket Management](screenshots/9.jpg)
-*View, download, or share your tickets.*
-
-### Choose seat
-![Ticket Management](screenshots/10.jpg)
-*View, download, or share your tickets.*
+### Choose Seat
+<img src="screenshots/10.jpg" alt="Choose Seat" width="400">
 
 ### Ticket Details
-![Ticket Management](screenshots/11.jpg)
-*View, download, or share your tickets.*
+<img src="screenshots/11.jpg" alt="Ticket Details" width="400">
 
 ### Ticket Download
-![Ticket Management](screenshots/12.jpg)
-*View, download, or share your tickets.*
+<img src="screenshots/12.jpg" alt="Ticket Download" width="400">
 
 ## Technologies Used
 
 - **Frontend**: Java, XML (Android UI components)
 - **Backend**: Firebase (Authentication, Realtime Database, Cloud Storage)
 - **IDE**: Android Studio
-
-
